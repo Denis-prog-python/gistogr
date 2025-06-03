@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import pandas as pd
 import matplotlib.pyplot as plt
+import re
 
 # Настройки Chrome для headless режима (работа без открытия окна браузера)
 chrome_options = Options()
@@ -35,7 +36,7 @@ for price_element in prices_elements:
     try:
         # Преобразование строки в число
         price_text = price_element.get_text().strip()
-        price_value = int(price_text.replace(' ', ''))
+        price_value = int(re.sub(r'\D', '', price_text))
         prices.append(price_value)
     except ValueError:
         continue
